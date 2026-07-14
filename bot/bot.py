@@ -24,7 +24,7 @@ async def cmd_start(message: Message):
     await get_or_create_user_settings(message.from_user.id)
     await message.answer("Привет. Я твой личный дисциплинарный напарник.\n\nОсновной интерфейс — Mini App.\nЗдесь можно быстро спросить: /ask")
     from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
-    MINI_APP_URL = "https://твой-проект.vercel.app"
+    MINI_APP_URL = MINI_APP_URL = "https://ai-naparnik-full-clqubf71o-floutisi01-5785s-projects.vercel.app"
     kb = InlineKeyboardMarkup(inline_keyboard=[[InlineKeyboardButton(text="Открыть Mini App", web_app=WebAppInfo(url=MINI_APP_URL))]])
     await message.answer("Главный экран:", reply_markup=kb)
 
