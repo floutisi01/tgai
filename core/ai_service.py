@@ -19,14 +19,14 @@ else:
 
 async def get_ai_response(user_message: str, context: str = "") -> str:
     if not model:
-        return "Сейчас я на минималках. Добавь GEMINI_API_KEY в .env"
+        return "Сейчас я на минималках. Добавь GEMINI_API_KEY."
     
     try:
-        full_prompt = f"{context}\n\nПользователь: {user_message}"
-        response = model.generate_content(full_prompt)
+        prompt = f"{context}\n\nПользователь: {user_message}"
+        response = model.generate_content(prompt)
         return response.text.strip()
     except Exception as e:
-        print(f"Gemini error: {e}")
+        print(f"Gemini Error: {e}")
         return "Что-то пошло не так с ИИ."
 
 async def generate_smart_reminder(goal_title: str, current_percent: int, days_since: int) -> str:
@@ -34,11 +34,11 @@ async def generate_smart_reminder(goal_title: str, current_percent: int, days_si
         return f"Цель «{goal_title}» на {current_percent}%. Пора двигаться."
     
     prompt = f"""
-    Цель пользователя: "{goal_title}"
-    Текущий прогресс: {current_percent}%
+    Цель: "{goal_title}"
+    Прогресс: {current_percent}%
     Дней без обновления: {days_since}
     
-    Напиши короткое (1-2 предложения), честное напоминание с лёгким сарказмом.
+    Напиши короткое, честное напоминание с лёгким сарказмом (1-2 предложения).
     """
     try:
         response = model.generate_content(prompt)
