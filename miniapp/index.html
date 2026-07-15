@@ -8,47 +8,168 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         body { background: #0f172a; color: #e2e8f0; }
-        .teal-glow { box-shadow: 0 0 15px rgba(20, 184, 166, 0.3); }
-        .progress-bar { transition: width 0.4s ease; }
-        .david-bg { background: linear-gradient(135deg, #1e2937 0%, #0f172a 100%); }
+        .teal-glow { box-shadow: 0 0 20px rgba(20, 184, 166, 0.25); }
+        .premium-card { background: #1e2937; transition: transform .2s ease; }
+        .premium-card:active { transform: scale(0.985); }
+        .progress-bar { transition: width .5s cubic-bezier(0.34,1.56,0.64,1); }
+        .david-img { filter: drop-shadow(0 10px 15px rgb(15 23 42 / 0.4)); }
     </style>
 </head>
 <body class="min-h-screen pb-20">
-    <div class="bg-slate-900 border-b border-slate-700 px-4 py-3 flex items-center justify-between">
+    
+    <!-- Header -->
+    <div class="bg-[#1e2937] px-5 py-4 flex justify-between items-center sticky top-0 z-50 border-b border-slate-700">
         <div class="flex items-center gap-x-3">
             <div class="w-9 h-9 bg-teal-600 rounded-2xl flex items-center justify-center">
                 <i class="fa-solid fa-user-tie text-white text-xl"></i>
             </div>
             <div>
-                <div class="font-semibold text-lg">AI Напарник</div>
-                <div class="text-xs text-slate-400">teal edition • 2026</div>
+                <div class="font-semibold text-xl">AI Напарник</div>
+                <div class="text-[10px] text-slate-400 -mt-1">teal edition • 2026</div>
             </div>
+        </div>
+        <div class="px-3.5 py-1.5 bg-slate-800 rounded-3xl text-sm flex items-center gap-x-2">
+            <i class="fa-solid fa-fire text-orange-400"></i>
+            <span class="font-medium">14 дней</span>
         </div>
     </div>
 
-    <div class="px-4 pt-6">
-        <div class="max-w-md mx-auto">
-            <div class="text-2xl font-semibold mb-2">Доброе утро, Давид.</div>
-            <div class="bg-slate-800 rounded-3xl p-5 teal-glow">
-                <div class="flex justify-between mb-2">
-                    <div>Главная цель</div>
-                    <div class="text-teal-400 font-semibold">68%</div>
+    <!-- HOME SCREEN -->
+    <div id="home-screen" class="screen px-5 pt-6">
+        <div class="david-bg rounded-3xl p-6 mb-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <div class="text-3xl font-semibold tracking-tight">Доброе утро, Давид.</div>
+                    <div class="text-slate-300 mt-1">Сегодня хороший день, чтобы двигаться.</div>
                 </div>
-                <div class="h-3 bg-slate-700 rounded-full">
-                    <div class="h-3 bg-teal-500 rounded-full" style="width: 68%"></div>
+                <img src="https://picsum.photos/id/1005/180/180" class="david-img w-20 h-20 rounded-2xl object-cover ring-1 ring-white/10" alt="David">
+            </div>
+            
+            <div class="mt-8 bg-white/5 rounded-3xl p-5">
+                <div class="flex justify-between items-end">
+                    <div>
+                        <div class="text-sm text-slate-400">Общий прогресс</div>
+                        <div class="text-6xl font-semibold">72</div>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-teal-400 text-3xl font-semibold">72%</div>
+                    </div>
+                </div>
+                <div class="h-3 bg-white/10 rounded-full mt-3">
+                    <div class="h-3 bg-teal-500 rounded-full" style="width:72%"></div>
                 </div>
             </div>
         </div>
+
+        <div class="grid grid-cols-3 gap-3 mb-8">
+            <div class="premium-card p-4 rounded-3xl text-center"><div class="text-xs text-slate-400">Активных целей</div><div class="text-4xl font-semibold">5</div></div>
+            <div class="premium-card p-4 rounded-3xl text-center"><div class="text-xs text-slate-400">За неделю</div><div class="text-4xl font-semibold text-teal-400">+19%</div></div>
+            <div class="premium-card p-4 rounded-3xl text-center"><div class="text-xs text-slate-400">Дней подряд</div><div class="text-4xl font-semibold text-orange-400">14</div></div>
+        </div>
     </div>
 
-    <div class="px-4 py-4 max-w-md mx-auto">
-        <div class="font-semibold mb-3">Цели</div>
-        <div class="bg-slate-800 rounded-3xl p-4">
+    <!-- GOALS SCREEN -->
+    <div id="goals-screen" class="screen hidden px-5 pt-6">
+        <div class="flex justify-between mb-5">
+            <div class="text-2xl font-semibold">Мои цели</div>
+            <button onclick="addNewGoal()" class="px-4 py-2 bg-teal-600 rounded-2xl text-sm">+ Добавить</button>
+        </div>
+        <div id="goals-list" class="space-y-3"></div>
+    </div>
+
+    <!-- STATS SCREEN -->
+    <div id="stats-screen" class="screen hidden px-5 pt-6">
+        <div class="text-2xl font-semibold mb-5">Статистика</div>
+        <div class="premium-card p-6 rounded-3xl mb-4">
             <div class="flex justify-between">
-                <div>Закончить проект</div>
-                <div class="text-teal-400">68%</div>
+                <div><div class="text-sm text-slate-400">Средний прогресс</div><div class="text-6xl font-semibold">68</div></div>
+                <div class="text-teal-400 text-2xl">+12%</div>
             </div>
         </div>
     </div>
+
+    <!-- PROFILE SCREEN -->
+    <div id="profile-screen" class="screen hidden px-5 pt-6">
+        <div class="premium-card p-6 rounded-3xl mb-6">
+            <div class="flex gap-4">
+                <img src="https://picsum.photos/id/1005/120/120" class="w-16 h-16 rounded-2xl object-cover" alt="David">
+                <div>
+                    <div class="font-semibold text-xl">Давид</div>
+                    <div class="text-sm text-slate-400">Уровень 14 • Дисциплина</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Nav -->
+    <div class="fixed bottom-0 left-0 right-0 bg-[#1e2937] border-t border-slate-700 py-2 z-50">
+        <div class="flex justify-around max-w-[420px] mx-auto text-sm">
+            <div onclick="showScreen('home')" class="flex flex-col items-center text-teal-400"><i class="fa-solid fa-home text-xl"></i><span class="text-xs">Главная</span></div>
+            <div onclick="showScreen('goals')" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-list-check text-xl"></i><span class="text-xs">Цели</span></div>
+            <div onclick="showScreen('stats')" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-chart-line text-xl"></i><span class="text-xs">Статистика</span></div>
+            <div onclick="showScreen('profile')" class="flex flex-col items-center text-slate-400"><i class="fa-solid fa-user text-xl"></i><span class="text-xs">Я</span></div>
+        </div>
+    </div>
+
+    <script>
+        function showScreen(screen) {
+            document.querySelectorAll('.screen').forEach(el => el.classList.add('hidden'));
+            document.getElementById(screen + '-screen').classList.remove('hidden');
+            
+            document.querySelectorAll('[id^="nav-"]').forEach(el => el.classList.remove('text-teal-400'));
+            const nav = document.getElementById('nav-' + screen);
+            if (nav) nav.classList.add('text-teal-400');
+        }
+
+        let goals = [
+            {id:1, title:"Закончить основной проект", progress:72},
+            {id:2, title:"Прочитать 12 книг", progress:41}
+        ];
+
+        function loadGoals() {
+            const container = document.getElementById('goals-list');
+            container.innerHTML = '';
+            goals.forEach(g => {
+                const div = document.createElement('div');
+                div.className = 'premium-card p-5 rounded-3xl';
+                div.innerHTML = `
+                    <div class="flex justify-between">
+                        <div class="font-medium">${g.title}</div>
+                        <div class="text-teal-400 text-3xl font-semibold">${g.progress}</div>
+                    </div>
+                    <div class="h-2 bg-slate-700 rounded-full my-3"><div class="h-2 bg-teal-500 rounded-full" style="width:${g.progress}%"></div></div>
+                    <button onclick="updateProgress(${g.id})" class="text-teal-400 text-sm">Обновить прогресс</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function updateProgress(id) {
+            const goal = goals.find(g => g.id === id);
+            const newVal = prompt("Новый прогресс (0-100):", goal.progress);
+            if (newVal) {
+                goal.progress = parseInt(newVal);
+                loadGoals();
+                if (window.Telegram?.WebApp) {
+                    window.Telegram.WebApp.sendData(JSON.stringify({action:"update_progress", goal_id:id, percent:goal.progress}));
+                }
+            }
+        }
+
+        function addNewGoal() {
+            const title = prompt("Название цели:");
+            if (title) {
+                goals.unshift({id:Date.now(), title, progress:0});
+                loadGoals();
+            }
+        }
+
+        function init() {
+            document.getElementById('home-screen').classList.remove('hidden');
+            loadGoals();
+            if (window.Telegram?.WebApp) window.Telegram.WebApp.ready();
+        }
+        window.onload = init;
+    </script>
 </body>
 </html>
