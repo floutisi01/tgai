@@ -19,7 +19,7 @@ async def cmd_start(message: Message):
     await message.answer("Привет. Я твой дисциплинарный напарник.\nОсновной интерфейс — Mini App.")
 
     from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
-    MINI_APP_URL = "https://ai-naparnik-full-clqubf71o-floutisi01-5785s-projects.vercel.app"
+    MINI_APP_URL = "https://replit.com/@floutisi01flou/GitHub-Connect#no_universal_links"
     kb = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text="Открыть Mini App", web_app=WebAppInfo(url=MINI_APP_URL))]
     ])
